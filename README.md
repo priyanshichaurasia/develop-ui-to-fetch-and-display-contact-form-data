@@ -63,6 +63,8 @@ More contact details should be displayed in a modal view, once the + button is c
 1. Fork the boilerplate
 2. Clone the forked repository
 3. Provide the solution code inside the script file `contact_service.js`.
+4. Ensure JavaScript Promise is used to make asynchronous calls.
+5. Develop your own axios to return promise with response
 4. The validation code can be reused from previous challenge and can be kept in `script.js`
 5. Ensure no other codes get modified, else, the rendering logic will fail to generate desired output.
 6. Launch the `index.html` page on the browser to view the rendered output
