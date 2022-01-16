@@ -23,38 +23,51 @@ const submitContact = (event) => {
   }
 };
 
+function view(id) {
+  var dataToShow;
+  let modaldata = "";
+  errorsummary.forEach((d) => {
+    if (d.id == id) {
+      // console.log("Found data " + JSON.stringify(d));
+      modaldata += "<p><b>" + d.firstname + " " + d.lastname + "</b></p>";
+      modaldata += "<p>" + "Home: " + d.homeNo + "</p>";
+      modaldata += "<p>" + "Work: " + d.workNo + "</p>";
+      modaldata += "<p>" + "Birthday: " + d.birthdate + "</p>";
+      modaldata += "<p>" + "Company: " + d.company + "</p>";
+      modaldata += "<p>" + "Job Title: " + d.jobTitle + "</p>";
+      modaldata += "<p>" + d.notes + "</p>";
+      document.getElementById("contact-data").innerHTML = modaldata;
+    }
+  });
+}
+
 axios
-  .get("localhost:3000/errorsummary")
+  .get("http://127.0.0.1:3000/errorsummary")
   .then((response) => {
+    let formdata = "";
+    // let formdata1 = "";
     errorsummary = response.data;
     errorsummary.sort(sorting);
     response.data.forEach((r) => {
-      let formdata = "";
       formdata += "<tr>";
       formdata += "<td>" + r.firstname + "</td>";
       formdata += "<td>" + r.lastname + "</td>";
       formdata += "<td>" + r.email + "</td>";
       formdata += "<td>" + r.homeNo + "</td>";
-      // formdata += "<td>"<button type="button" class="btn btn-primary">+</button>"</td>";
+      formdata +=
+        "<td>" +
+        `<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal" onclick="view(${r.id})">+</button>` +
+        "</td>";
       formdata += "</tr>";
       console.log(r);
+      document.getElementById("contact-list").innerHTML = formdata;
     });
-
-    document.getElementById("contact-list").innerHTML = formdata;
   })
   .catch(function (error) {
     console.log(error);
   });
 
-//persistant function
-// function senddata(dataobj){
-// axios.post("http://localhost:3000/errorsummary").then((response)=>{
-//   console.log("Added Successfully" +JSON.stringify(dataobj));
-// })
-// .catch(err=>{
-//   console.log("Error in Adding" +err);
-// })
-// }
+//persistant functions
 function senddata(dataobj) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:3000/errorsummary", true);
