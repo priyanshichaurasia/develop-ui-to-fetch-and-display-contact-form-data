@@ -24,7 +24,6 @@ const submitContact = (event) => {
 };
 
 function view(id) {
-  var dataToShow;
   let modaldata = "";
   errorsummary.forEach((d) => {
     if (d.id == id) {
